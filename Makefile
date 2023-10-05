@@ -8,7 +8,16 @@ SRC = $(wildcard *.c)
 
 OBJ = $(SRC:.c=.o)
 
-all = $(NAME)
+all : $(NAME)
 
 $(NAME) :
-	$(CC) $(CFLAGS) src/ft_printf.c -I include -L lib -l ft
+	$(CC) $(CFLAGS) -o $(NAME) src/ft_printf.c -I include -L lib -l ft
+
+clean :
+	rm -rf $(OBJ)
+
+fclean : clean
+	rm -rf $(NAME)
+
+re : fclean all
+
