@@ -1,23 +1,29 @@
+
+NAME = ft_printf.a
+
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-NAME = printftest
-
-SRC = $(wildcard *.c)
+SRC = src/ft_printf.c \
+	src/utils.c
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) :
-	$(CC) $(CFLAGS) -o $(NAME) src/ft_printf.c -I include -L lib -l ft
+$(OBJ) : $(SRC)
+	$(CC) $(CFLAGS) -I include -c $< -o $@
+
+$(NAME) : $(OBJ)
+	cp lib/libft.a .
+	mv libft.a $(NAME)
+	ar rcs $(NAME) $(OBJ)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(BONUSOBJ)
 
 fclean : clean
 	rm -rf $(NAME)
 
-re : fclean all
-
+re : clean all
