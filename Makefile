@@ -1,5 +1,5 @@
 
-NAME = ft_printf.a
+NAME = libftprintf.a
 
 CC = gcc
 
@@ -12,18 +12,17 @@ OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(OBJ) : $(SRC)
+src/%.o : src/%.c
 	$(CC) $(CFLAGS) -I include -c $< -o $@
 
 $(NAME) : $(OBJ)
-	cp lib/libft.a .
-	mv libft.a $(NAME)
-	ar rcs $(NAME) $(OBJ)
+	cp lib/libft.a $(NAME)
+	ar rcs $(NAME) $(OBJDIR)$(OBJ)
 
 clean :
-	rm -rf $(OBJ) $(BONUSOBJ)
+	rm -rf $(OBJDIR)$(OBJ)
 
 fclean : clean
 	rm -rf $(NAME)
 
-re : clean all
+re : fclean all

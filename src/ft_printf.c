@@ -11,7 +11,7 @@ static void ft_print_args(char const c, va_list args)
         ft_putstr(va_arg(args, char *));
     else if (c == 'd' || c == 'i')
         ft_putnbr(va_arg(args, int));
-    else if (c == 'u')  
+    else if (c == 'u')
         ft_putnbru(va_arg(args, unsigned int));
     else if (c == '%')
         ft_putchar('%');
