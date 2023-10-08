@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:18:39 by evella            #+#    #+#             */
-/*   Updated: 2023/10/08 03:20:15 by evella           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:35:08 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ static int	ft_print_args_two(char const c, va_list args)
 		i += ft_intlen(j);
 	}
 	else if (c == 'u')
-	{
-		j = va_arg(args, unsigned int);
-		ft_putnbru(j);
-		i += ft_intlen(j);
-	}
+		i += ft_putnbru(va_arg(args, unsigned int));
 	return (i);
 }
 
@@ -51,7 +47,7 @@ static int	ft_print_args(char const c, va_list args)
 	else if (c == '%')
 		i += ft_putchar('%');
 	else if (c == 'p')
-		i += ft_putnbr_hexa((long int)va_arg(args, void *), 0, 0);
+		i += ft_putptr((long int)va_arg(args, void *));
 	else if (c == 'x')
 		i += ft_putnbr_hexa(va_arg(args, long int), 0, 1);
 	else if (c == 'X')

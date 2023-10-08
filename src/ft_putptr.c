@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_ex.c                                      :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 03:08:57 by evella            #+#    #+#             */
-/*   Updated: 2023/10/08 19:35:17 by evella           ###   ########.fr       */
+/*   Created: 2023/10/08 19:42:52 by evella            #+#    #+#             */
+/*   Updated: 2023/10/08 19:42:53 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include "ft_printf.h"
 
-static int	ft_hexalen(unsigned int n)
+static int	ft_hexalen(unsigned long int n)
 {
 	int	len;
 
@@ -26,13 +26,11 @@ static int	ft_hexalen(unsigned int n)
 	return (len);
 }
 
-static int	ft_putnbr_hexa_two(unsigned int n, int upper, int j)
+static int	ft_putptr_two(unsigned long int n, int j)
 {
-	int		i;
 	int		len;
 	char	*res;
 
-	i = -1;
 	len = ft_hexalen(n);
 	res = (char *)ft_calloc(sizeof(char), (len + 2));
 	if (!res)
@@ -45,50 +43,22 @@ static int	ft_putnbr_hexa_two(unsigned int n, int upper, int j)
 		n = n / 16;
 		j++;
 	}
-	while (upper == 1 && res[++i])
-		res[i] = ft_toupper(res[i]);
 	ft_putstr(res);
 	free (res);
 	return (j);
 }
 
-int	ft_putnbr_hexa(unsigned int n, int upper, int format)
+int	ft_putptr(unsigned long int n)
 {
 	int	j;
 
 	j = 0;
-	if (!n && format == 0)
+	if (!n)
 	{
 		ft_putstr("(nil)");
 		return (5);
 	}
-	else if (!n && format == 1)
-	{
-		ft_putstr("0");
-		return (1);
-	}
-	if (format == 0)
-	{
-		j = 2;
-		ft_putstr("0x");
-	}
-	return (ft_putnbr_hexa_two(n, upper, j));
-}
-
-int	ft_intlen(int n)
-{
-	int	len;
-
-	len = 1;
-	if (n < 0)
-	{
-		n = n * -1;
-		len++;
-	}
-	while (n / 10 != 0)
-	{
-		len++;
-		n = n / 10;
-	}
-	return (len);
+	j = 2;
+	ft_putstr("0x");
+	return (ft_putptr_two(n, j));
 }

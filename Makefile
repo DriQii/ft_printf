@@ -8,6 +8,7 @@ CFLAGS = -Wall -Werror -Wextra
 SRC = src/ft_printf.c \
 	src/utils.c \
 	src/ft_print_ex.c \
+	src/ft_putptr.c
 
 OBJ = $(SRC:.c=.o)
 
