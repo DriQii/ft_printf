@@ -1,7 +1,7 @@
 
 #include "ft_printf.h"
 
-void ft_putstr(const char *s)
+int ft_putstr(const char *s)
 {
     int i;
 
@@ -11,11 +11,12 @@ void ft_putstr(const char *s)
         write(1, &s[i], 1);
         i++;
     }
+	return (i);
 }
-
-void ft_putchar(const char c)
+int ft_putchar(const char c)
 {
     write(1, &c, 1);
+	return (1);
 }
 static int	ft_ptrlen(unsigned long int n)
 {
@@ -30,37 +31,52 @@ static int	ft_ptrlen(unsigned long int n)
 	return (len);
 }
 
-void	ft_putnbr_hexa(long int n, int format)
+int	ft_putnbr_hexa(long int n, int upper, int format)
 {
 	int		len;
 	char	*res;
 	int		i;
+	int		j;
 
-	if (!n)
+	j = 0;
+	if (!n && format == 0)
 	{
 		ft_putstr("(nil)");
-		return;
+		return (5);
 	}
+	else if (!n && format == 1)
+	{
+		ft_putstr("0");
+		return (1);
+	}
+	if (format == 0)
+	{
+		j = 2;
+		ft_putstr("0x");
+	}
+
 	i = -1;
 	len = ft_ptrlen(n);
     res = (char *)ft_calloc(sizeof(char) , (len + 2));
     if (!res)
-    {    
-		return;
+    {
+		return (0);
 	}
 	while (n != 0)
 	{
 		res[len] = "0123456789abcdef"[n % 16];
         n = n / 16;
 		len--;
+		j++;
 	}
-	while (format == 1 && res[++i])
+	while (upper == 1 && res[++i])
 		res[i] = ft_toupper(res[i]);
 	ft_putstr(res);
 	free (res);
+	return (j);
 }
 
-static unsigned int	ft_intlen(unsigned int n)
+static unsigned int	ft_uintlen(unsigned int n)
 {
 	int	len;
 
@@ -77,7 +93,7 @@ void	ft_putnbru(unsigned int n)
 {
 	unsigned int	len;
 	char			res;
-	len = ft_intlen(n);
+	len = ft_uintlen(n);
 	while (len >= 1)
 	{
 		res = n / len + '0';
@@ -86,3 +102,21 @@ void	ft_putnbru(unsigned int n)
 		len = len / 10;
 	}
 }
+int	ft_intlen(int n)
+{
+	int	len;
+
+	len = 1;
+	if (n < 0)
+	{
+		n = n * -1;
+		len++;
+	}
+	while (n / 10 != 0)
+	{
+		len++;
+		n = n / 10;
+	}
+	return (len);
+}
+
