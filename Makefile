@@ -6,7 +6,8 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
 SRC = src/ft_printf.c \
-	src/utils.c
+	src/utils.c \
+	src/ft_print_ex.c \
 
 OBJ = $(SRC:.c=.o)
 
